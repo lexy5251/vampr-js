@@ -30,8 +30,6 @@ describe("Vampire", function() {
       offspring5.addOffspring(offspring6);
       offspring6.addOffspring(offspring7);
       offspring2.addOffspring(offspring8);
-
-      //console.log("rootVampire.allVampires.length is:",rootVampire.allVampires.length);
     });
 
     it("should return an array of all vampires converted after 1980", () => {
