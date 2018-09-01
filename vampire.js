@@ -36,6 +36,71 @@ class Vampire {
     return this.numberOfVampiresFromOriginal < vampire.numberOfVampiresFromOriginal;
   }
 
+  /** Tree traversal methods **/
+
+  // Returns the vampire object with that name, or null if no vampire exists with that name
+  vampireWithName(name) {
+    if (this.name = name) {
+      return this;
+    }
+
+    for (let i=0;i<this.offspring.length;i++) {
+      let child = this.offspring[i];
+      let res = child.vampireWithName(name);
+      if (res != null) {
+        return res;
+      }
+    }
+
+    return null;
+  }
+
+  // Returns the total number of vampires that exist
+  get totalDescendents() {
+    if (this.offspring.length === 0) {
+      return 0;
+    }
+    let total = 0;
+     for (let i = 0; i < this.offspring.length; i++) {
+        let child = this.offspring[i];
+        let result = 1 + child.totalDescendents;
+        total += result;
+     }
+     return total;
+
+
+  }
+
+  get allVampires() {
+     let array = [];
+     array.push(this);
+
+     if (this.offspring.length === 0) {
+      return array;
+     }
+
+     for (let i = 0; i < this.offspring.length; i++) {
+      let child = this.offspring[i];
+      array = array.concat(child.allVampires);
+     }
+     return array;
+  }
+
+  // Returns an array of all the vampires that were converted after 1980
+  get allMillennialVampires() {
+    if (this.yearConverted > 1980) {
+      return this.allVampires;
+    }
+
+    let array = [];
+    for (let i = 0; i < this.offspring.length; i++) {
+      let child = this.offspring[i];
+      array = array.concat(child.allMillennialVampires);
+    }
+
+    return array;
+  }
+
   /** Stretch **/
 
   // Returns the closest common ancestor of two vampires.
